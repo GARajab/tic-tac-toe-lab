@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+
+:root,
+:root.light {
+  --bg-color: #13bdac;
+  --text-color: white;
+}
+
+:root.dark {
+  --bg-color: #121212;
+  --text-color: white;
+}
+body {
+  /* background-color: #13bdac; */
+  background-color: var(--bg-color);
+  /* font-family: system-ui, sans-serif; */
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  height: 100vh;
+  text-align: center;
+  align-content: center;
+  padding: 0;
+  /* color: white; */
+  color: var(--text-color);
+  /* visibility: hidden; */
+}
+.score {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  padding: 10px; /* Optional padding */
+  margin-top: -5px;
+  font-size: 30px;
+}
+
+.PX {
+  text-align: center; /* Align text to the left */
+}
+#plX {
+  color: #ef476f;
+  font-weight: bold;
+}
+.PO {
+  text-align: center; /* Align text to the right */
+}
+#plO {
+  font-weight: bold;
+}
+
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  width: 325px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.board:hover {
+  cursor: pointer;
+}
+
+.sqr {
+  width: 30%;
+  aspect-ratio: 1/1;
+  border: 3px solid white;
+  font-size: 64px;
+  text-align: center;
+}
+
+[id="0"] {
+  border-left: none;
+  border-top: none;
+}
+[id="1"] {
+  border-top: none;
+}
+[id="2"] {
+  border-right: none;
+  border-top: none;
+}
+[id="3"] {
+  border-left: none;
+}
+[id="5"] {
+  border-right: none;
+}
+[id="6"] {
+  border-left: none;
+  border-bottom: none;
+}
+[id="7"] {
+  border-bottom: none;
+}
+[id="8"] {
+  border-right: none;
+  border-bottom: none;
+}
+
+#reset {
+  margin-top: 30px;
+  padding: 20px;
+  width: 27%;
+  height: 40%;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  margin: auto;
+}
+
+#reset:hover {
+  cursor: pointer;
+}
+
+img {
+  width: 100px;
+}
+
+/* try dark mode */
+
+.dark-mode {
+  background-color: #222;
+  color: #fff;
+}
+
+#toggle-theme {
+  position: absolute;
+  top: 20px; /* Adjust this value as needed */
+  right: 20px; /* Adjust this value as needed */
+  background-color: #fff; /* Change the background color as desired */
+  color: #000; /* Change the text color as desired */
+  padding: 10px;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+}
+
+.theme-btn {
+  width: 6em;
+  height: 6em;
+  padding: 0.5em;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.theme-btn img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.theme-btn.light {
+  display: none;
+}
+
+.dark .theme-btn.dark {
+  display: none;
+}
+
+.dark .theme-btn.light {
+  display: block;
+}
+
+#background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/images/keepCalm.jpg"); /* Replace with your image path */
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  background-repeat: no-repeat;
+  opacity: 0; /* Adjust opacity as needed */
+  transition: opacity 0.3s ease; /* Add a smooth transition effect */
+}
+
+#background-image.show {
+  opacity: 1;
+  z-index: 9999; /* Make the image fully visible when it's shown */
+}
