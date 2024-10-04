@@ -25,23 +25,18 @@ body {
   /* visibility: hidden; */
 }
 .score {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  display: flex;
+  justify-content: space-around; /* Two equal columns */
   padding: 10px; /* Optional padding */
-  margin-top: -5px;
+  margin-top: -424px;
   font-size: 30px;
 }
 
-.PX {
-  text-align: center; /* Align text to the left */
-}
 #plX {
   color: #ef476f;
   font-weight: bold;
 }
-.PO {
-  text-align: center; /* Align text to the right */
-}
+
 #plO {
   font-weight: bold;
 }
@@ -169,7 +164,35 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("/images/keepCalm.jpg"); /* Replace with your image path */
+  background-image: url("/images/bground.jpg"); /* Replace with your image path */
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  background-repeat: no-repeat;
+  opacity: 0; /* Adjust opacity as needed */
+  transition: opacity 0.3s ease; /* Add a smooth transition effect */
+}
+#gameOverO {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/images/gameOverO.jpg"); /* Replace with your image path */
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  background-repeat: no-repeat;
+  opacity: 0; /* Adjust opacity as needed */
+  transition: opacity 0.3s ease; /* Add a smooth transition effect */
+}
+#gameOverX {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/images/gameOverX.jpg"); /* Replace with your image path */
   background-size: cover;
   background-position: center;
   z-index: -1;
@@ -181,4 +204,24 @@ img {
 #background-image.show {
   opacity: 1;
   z-index: 9999; /* Make the image fully visible when it's shown */
+}
+#gameOverO.show {
+  opacity: 1;
+  z-index: 9999; /* Make the image fully visible when it's shown */
+}
+#gameOverX.show {
+  opacity: 1;
+  z-index: 9999; /* Make the image fully visible when it's shown */
+}
+#gameOver {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 500px;
+  flex-direction: column;
+  margin-top: -300px;
+  font-size: 30px;
+}
+
+.remain {
+  margin-top: 25px;
 }

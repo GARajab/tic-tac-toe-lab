@@ -18,6 +18,8 @@ let tie = false
 let currentPlayer = "X"
 let xWinCount = 0
 let oWinCount = 0
+let tieNumbersCounter = 0
+let tries = 3
 /*------------------------ Cached Element References ------------------------*/
 const bodyModified = document.querySelector("body")
 const toggleButton = document.getElementById("toggle-theme")
@@ -25,13 +27,17 @@ const body = document.body
 const squareEls = document.querySelectorAll(".sqr")
 const messageEl = document.querySelector("#message")
 const boards = document.querySelectorAll(".board")
-// const resetBtnEl = document.querySelector("#reset")
 const animatedReset = document.getElementById("reset")
 const xScoreVal = document.getElementById("xScore")
 const oScoreVal = document.getElementById("oScore")
 const xPlayColor = document.getElementById("plX")
 const oPlayColor = document.getElementById("plO")
+const tieEl = document.getElementById("labelTie")
+const tieNumbersCounterEl = document.getElementById("tieNumbers")
 const backgroundImage = document.getElementById("background-image")
+const gameOverOO = document.getElementById("gameOverO")
+const gameOverXX = document.getElementById("gameOverX")
+const triesEl = document.getElementById("tries")
 let winningCombination = []
 
 /*-------------------------------- Functions --------------------------------*/
@@ -46,7 +52,12 @@ const init = () => {
   render()
   xPlayColor.style.color = "white"
   xPlayColor.style.fontWeight = "bold"
+  tieEl.style.color = "white"
+  if (tries === 0) {
+    tries = 3
+  }
 }
+
 const render = () => {
   updateBoard()
   updateMessage()
@@ -65,9 +76,17 @@ const updateMessage = () => {
     messageEl.innerHTML = "It Is Tie Please Try Again!"
     showHideKeepCalm()
     showHideResetBtn()
+    tieNumbersCounter++
+    tries--
+    triesEl.innerHTML = tries
+    tieNumbersCounterEl.innerHTML = `Score Is: ${tieNumbersCounter}`
+    tieEl.style.color = "#EF476F"
+    oPlayColor.style.color = "white"
+    xPlayColor.style.color = "white"
   } else {
     messageEl.innerHTML = `<img src=/images/fest-bgrmvd.png>  Player ( ${turn} ) Won!  <img src=/images/fest-bgrmvd.png>`
     showHideResetBtn()
+    showHideGameOver()
   }
 }
 
@@ -86,14 +105,7 @@ const handleClick = (event) => {
   checkForWinner()
   checkForTie()
 
-  if (winner) {
-    // winnerCounter() // Increment count only if there is a winner now
-  } else {
-    checkForTie()
-    if (!winner) {
-      currentPlayer = currentPlayer === "X" ? "O" : "X" // After checking for winner
-    }
-  }
+  currentPlayer = currentPlayer === "X" ? "O" : "X" // After checking for winner
 
   updateBoard()
   placePiece(squareIndex)
@@ -103,10 +115,10 @@ const handleClick = (event) => {
 
 const placePiece = (index) => {
   board[index] = turn
-  console.log(board)
 }
 
 const checkForWinner = () => {
+  // for if loop to get the winning criteria no blank and a=b and a=c and b=c
   for (let combo of winningCombos) {
     const [a, b, c] = combo
     if (board[a] !== "" && board[a] === board[b] && board[a] === board[c]) {
@@ -143,12 +155,15 @@ const switchPlayerTurn = () => {
 const winnerCounter = () => {
   if (currentPlayer === "X") {
     xWinCount++
-  } else {
+    tries--
+  } else if (currentPlayer === "O") {
     oWinCount++
+    tries--
   }
 
   oScoreVal.innerHTML = `Score Is: ${oWinCount}`
   xScoreVal.innerHTML = `Score Is: ${xWinCount}`
+  triesEl.innerHTML = tries
 }
 
 const showHideResetBtn = () => {
@@ -173,19 +188,35 @@ const showHideKeepCalm = () => {
 const highlightWinningCombination = () => {
   for (let index of winningCombination) {
     const cell = document.getElementById(`${index}`)
-    cell.style.backgroundColor = "yellow" // Change this to your desired color
+    cell.style.backgroundColor = "lightgreen"
   }
 }
 
 const rstWinColorBack = () => {
   for (let i = 0; i < board.length; i++) {
     const cell = document.getElementById(`${i}`)
-    cell.style.backgroundColor = "" // Reset to default background color
+    cell.style.backgroundColor = ""
     cell.textContent = ""
   }
 }
+
+const showHideGameOver = () => {
+  console.log(tries)
+  if (tries === 0) {
+    if (currentPlayer === "X") {
+      gameOverOO.classList.add("show")
+      setTimeout("gameOverOO.classList.remove('show')", 3000)
+      // tries = 3
+    } else if (currentPlayer === "O") {
+      console.log("ni")
+
+      gameOverXX.classList.add("show")
+      setTimeout("gameOverXX.classList.remove('show')", 3000)
+      // tries = 3
+    }
+  }
+}
 /*----------------------------- Event Listeners -----------------------------*/
-// boards.addEventListener("click", (event) => {})
 boards.forEach((cell) => {
   cell.addEventListener("click", handleClick)
 })
