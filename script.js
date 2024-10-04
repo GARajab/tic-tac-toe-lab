@@ -74,7 +74,7 @@ const updateMessage = () => {
     messageEl.innerHTML = ""
   } else if (winner === false && tie === true) {
     messageEl.innerHTML = "It Is Tie Please Try Again!"
-    showHideKeepCalm()
+    showItIsTie()
     showHideResetBtn()
     tieNumbersCounter++
     tries--
@@ -104,8 +104,8 @@ const handleClick = (event) => {
 
   checkForWinner()
   checkForTie()
-
-  currentPlayer = currentPlayer === "X" ? "O" : "X" // After checking for winner
+  // switch between x and o
+  currentPlayer = currentPlayer === "X" ? "O" : "X"
 
   updateBoard()
   placePiece(squareIndex)
@@ -113,10 +113,12 @@ const handleClick = (event) => {
   updateMessage()
 }
 
+// fill board array with the turns whither x or o
 const placePiece = (index) => {
   board[index] = turn
 }
 
+// check if it is winning combination and the related function to congrats the winner
 const checkForWinner = () => {
   // for if loop to get the winning criteria no blank and a=b and a=c and b=c
   for (let combo of winningCombos) {
@@ -136,6 +138,7 @@ const checkForTie = () => {
   tie = !winner && board.every((square) => square !== "")
 }
 
+// change the colors of the player name
 const switchPlayerTurn = () => {
   if (winner) {
     return
@@ -166,6 +169,7 @@ const winnerCounter = () => {
   triesEl.innerHTML = tries
 }
 
+// auto hide and show the reset switch no need to keep it while playing
 const showHideResetBtn = () => {
   if (animatedReset.style.display === "none") {
     animatedReset.style.display = ""
@@ -176,7 +180,8 @@ const showHideResetBtn = () => {
   }
 }
 
-const showHideKeepCalm = () => {
+// add show to the css property to cover the page with picture of it is tie
+const showItIsTie = () => {
   if (tie) {
     backgroundImage.classList.add("show")
     setTimeout("backgroundImage.classList.remove('show')", 3000)
@@ -185,6 +190,7 @@ const showHideKeepCalm = () => {
   }
 }
 
+// to highlight the 3 winning combination
 const highlightWinningCombination = () => {
   for (let index of winningCombination) {
     const cell = document.getElementById(`${index}`)
@@ -192,6 +198,7 @@ const highlightWinningCombination = () => {
   }
 }
 
+// reset the default colors and contents
 const rstWinColorBack = () => {
   for (let i = 0; i < board.length; i++) {
     const cell = document.getElementById(`${i}`)
